@@ -7,6 +7,9 @@
   --color-brand: #ff6b35;
   --color-brand-dark: #e85d2c;
   --color-brand-light: #ff8c61;
+
+  /* Custom breakpoints */
+  --breakpoint-xs: 20rem; /* 320px — iPod Touch 6/7, iPhone SE 1st gen */
 }
 
 @keyframes shimmer {

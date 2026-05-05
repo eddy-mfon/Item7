@@ -66,34 +66,35 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
       <div className="relative z-[60] bg-gray-950 text-white text-center shadow-lg overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
         <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-brand to-transparent opacity-50"></div>
-        <p className="py-2.5 px-4 text-xs tracking-[0.15em] font-medium uppercase flex flex-col sm:flex-row items-center justify-center gap-1.5 opacity-90 relative z-10 w-full overflow-hidden text-center sm:text-left">
-          <span className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2 shrink-0">
+        <p className="py-2 px-3 text-[10px] xs:text-xs tracking-[0.1em] xs:tracking-[0.15em] font-medium uppercase flex flex-row items-center justify-center gap-1.5 opacity-90 relative z-10 w-full overflow-hidden text-center">
+          <span className="flex items-center gap-1.5 shrink-0">
+            <span className="relative flex h-1.5 w-1.5 xs:h-2 xs:w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
+              <span className="relative inline-flex rounded-full h-full w-full bg-brand"></span>
             </span>
-            <span className="text-gray-400">Grand Pop-up drops in</span>
+            <span className="text-gray-400 hidden xs:inline">Grand Pop-up drops in</span>
+            <span className="text-gray-400 xs:hidden">Pop-up drops in</span>
           </span>
           <span className="font-black text-brand tracking-widest">{timeLeft}</span>
         </p>
       </div>
 
-      <div className="fixed top-10 inset-x-0 z-50 pointer-events-none flex justify-center px-4 w-full">
+      <div className="fixed top-9 xs:top-10 inset-x-0 z-50 pointer-events-none flex justify-center px-2 xs:px-4 w-full">
         <motion.nav
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-          className={`pointer-events-auto transition-all duration-500 will-change-transform w-full max-w-5xl rounded-full border flex items-center justify-between shadow-2xl backdrop-blur-2xl px-2 py-2 sm:px-4 sm:py-3 ${
+          className={`pointer-events-auto transition-all duration-500 will-change-transform w-full max-w-5xl rounded-full border flex items-center justify-between shadow-2xl backdrop-blur-2xl px-1.5 py-1.5 xs:px-2 xs:py-2 sm:px-4 sm:py-3 ${
             isScrolled 
               ? 'bg-white/85 border-white/40' 
               : 'bg-white/95 border-white/60'
           }`}
         >
-          <Link to="/" className="flex items-center gap-3 cursor-pointer group px-2 sm:px-0" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-950 rounded-full flex items-center justify-center group-hover:bg-brand transition-all duration-500 shadow-md transform group-hover:rotate-[360deg]">
-              <UtensilsCrossed size={18} strokeWidth={2.5} className="text-white sm:w-5 sm:h-5" />
+          <Link to="/" className="flex items-center gap-1.5 xs:gap-2 sm:gap-3 cursor-pointer group px-1 xs:px-2 sm:px-0" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <div className="w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 shrink-0 bg-gray-950 rounded-full flex items-center justify-center group-hover:bg-brand transition-all duration-500 shadow-md transform group-hover:rotate-[360deg]">
+              <UtensilsCrossed size={15} strokeWidth={2.5} className="text-white xs:w-[18px] xs:h-[18px] sm:w-5 sm:h-5" />
             </div>
-            <span className="text-xl sm:text-2xl font-display font-black tracking-tighter text-gray-950 pr-2">ITEM 7</span>
+            <span className="text-base xs:text-xl sm:text-2xl font-display font-black tracking-tighter text-gray-950 pr-1 xs:pr-2">ITEM 7</span>
           </Link>
           
           <div className="hidden md:flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-auto gap-1 bg-gray-100/50 rounded-full p-1 border border-gray-200/50">
@@ -130,30 +131,32 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
             </Link>
           </div>
 
-          <div className="md:hidden flex items-center gap-2 sm:gap-3">
-             <Link 
-              to="/shop"
-              onClick={(e) => {
-                handleOrderNowClick(e);
-                setIsMobileMenuOpen(false);
-              }}
-              className="relative overflow-hidden flex items-center justify-center bg-brand text-gray-950 w-11 h-11 rounded-full shadow-[0_4px_20px_rgba(249,115,22,0.4)] transition-all active:scale-95 border border-brand/50 group"
-            >
-              <div className="absolute inset-0 bg-white/25 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-              <ShoppingBag size={20} className="relative z-10 group-hover:-translate-y-0.5 group-hover:rotate-12 transition-transform duration-300 stroke-[2.5]" />
+          <div className="md:hidden flex items-center gap-1.5 xs:gap-2 sm:gap-3">
+            <div className="relative">
+              <Link 
+                to="/shop"
+                onClick={(e) => {
+                  handleOrderNowClick(e);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="overflow-hidden flex items-center justify-center bg-brand text-gray-950 w-9 h-9 xs:w-10 xs:h-10 sm:w-11 sm:h-11 rounded-full shadow-[0_4px_20px_rgba(249,115,22,0.4)] transition-all active:scale-95 border border-brand/50 group"
+              >
+                <div className="absolute inset-0 bg-white/25 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                <ShoppingBag size={17} className="relative z-10 xs:w-5 xs:h-5 group-hover:-translate-y-0.5 group-hover:rotate-12 transition-transform duration-300 stroke-[2.5]" />
+              </Link>
               {totalItems > 0 && (
-                <span className="absolute z-20 0 duration-300 -top-1 -right-1 bg-gray-950 text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-brand shadow-sm animate-in zoom-in">
+                <span className="absolute -top-1.5 -right-1.5 z-20 bg-gray-950 text-white text-[9px] xs:text-[10px] font-black w-4 h-4 xs:w-5 xs:h-5 flex items-center justify-center rounded-full border-[1.5px] xs:border-2 border-brand shadow-sm animate-in zoom-in">
                   {totalItems}
                 </span>
               )}
-            </Link>
+            </div>
             
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="w-10 h-10 rounded-full flex flex-col items-center justify-center gap-1 bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="w-9 h-9 xs:w-10 xs:h-10 rounded-full flex flex-col items-center justify-center gap-[3px] xs:gap-1 bg-gray-100 hover:bg-gray-200 transition-colors"
             >
-              <span className={`w-4 h-[2px] bg-gray-950 transition-all duration-300 origin-center ${isMobileMenuOpen ? 'rotate-45 translate-y-[3px]' : ''}`} />
-              <span className={`w-4 h-[2px] bg-gray-950 transition-all duration-300 origin-center ${isMobileMenuOpen ? '-rotate-45 -translate-y-[3px]' : ''}`} />
+              <span className={`w-3.5 xs:w-4 h-[2px] bg-gray-950 transition-all duration-300 origin-center ${isMobileMenuOpen ? 'rotate-45 translate-y-[3px]' : ''}`} />
+              <span className={`w-3.5 xs:w-4 h-[2px] bg-gray-950 transition-all duration-300 origin-center ${isMobileMenuOpen ? '-rotate-45 -translate-y-[3px]' : ''}`} />
             </button>
           </div>
         </motion.nav>
@@ -166,23 +169,23 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
               animate={{ opacity: 1, y: 0, scaleY: 1 }}
               exit={{ opacity: 0, y: -10, scaleY: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-[calc(100%+12px)] left-4 right-4 bg-white/95 backdrop-blur-3xl rounded-[2rem] border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden pointer-events-auto origin-top p-3 z-40 md:hidden"
+              className="absolute top-[calc(100%+10px)] xs:top-[calc(100%+12px)] left-2 right-2 xs:left-4 xs:right-4 bg-white/95 backdrop-blur-3xl rounded-[1.5rem] xs:rounded-[2rem] border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden pointer-events-auto origin-top p-2 xs:p-3 z-40 md:hidden"
             >
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-0.5 xs:gap-1">
                 <button 
                   onClick={() => {
                     handleScrollToAbout();
                     setIsMobileMenuOpen(false);
                   }} 
-                  className="w-full text-left text-[17px] font-bold text-gray-950 hover:text-brand hover:bg-gray-50 px-5 py-4 rounded-[1.5rem] transition-all flex items-center justify-between group"
+                  className="w-full text-left text-[15px] xs:text-[17px] font-bold text-gray-950 hover:text-brand hover:bg-gray-50 px-4 xs:px-5 py-3 xs:py-4 rounded-[1.25rem] xs:rounded-[1.5rem] transition-all flex items-center justify-between group"
                 >
-                  Our Story <ChevronRight size={18} className="text-gray-300 group-hover:text-brand transition-colors" />
+                  Our Story <ChevronRight size={16} className="text-gray-300 group-hover:text-brand transition-colors shrink-0" />
                 </button>
                 <Link 
                   to="/shop" 
-                  className="w-full text-left text-[17px] font-bold text-gray-950 hover:text-brand hover:bg-gray-50 px-5 py-4 rounded-[1.5rem] transition-all flex items-center justify-between group"
+                  className="w-full text-left text-[15px] xs:text-[17px] font-bold text-gray-950 hover:text-brand hover:bg-gray-50 px-4 xs:px-5 py-3 xs:py-4 rounded-[1.25rem] xs:rounded-[1.5rem] transition-all flex items-center justify-between group"
                 >
-                  Shop Menu <ChevronRight size={18} className="text-gray-300 group-hover:text-brand transition-colors" />
+                  Shop Menu <ChevronRight size={16} className="text-gray-300 group-hover:text-brand transition-colors shrink-0" />
                 </Link>
               </div>
             </motion.div>
