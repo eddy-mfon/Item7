@@ -26,12 +26,12 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
   };
 
   return (
-    <section id="checkout" className="py-24 bg-white relative overflow-hidden">
+    <section id="checkout" className="py-16 sm:py-24 bg-white relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-brand/5 -skew-x-12 translate-x-16" />
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
-        <div className="bg-white rounded-[40px] shadow-2xl p-8 md:p-12 border border-gray-100 relative overflow-hidden">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="bg-white rounded-[30px] sm:rounded-[40px] shadow-2xl p-5 sm:p-8 md:p-12 border border-gray-100 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#229ED9] via-brand to-rose-400" />
           
           <motion.div 
@@ -40,7 +40,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
             viewport={{ once: true }}
             className="text-center mb-10"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-black text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-gray-900 mb-4">
               Finalize Your Order
             </h2>
             <p className="text-gray-600 font-medium">Review your cart and continue to Telegram to secure your order.</p>
@@ -53,9 +53,9 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-white p-6 sm:p-8 rounded-[2rem] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-10"
+              className="bg-white p-5 sm:p-8 rounded-[2rem] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-10"
             >
-              <h3 className="font-black text-gray-900 mb-8 flex items-center gap-3 text-xl border-b-2 border-brand/20 pb-4 inline-flex">
+              <h3 className="font-black text-gray-900 mb-8 flex items-center gap-3 text-lg sm:text-xl border-b-2 border-brand/20 pb-4 inline-flex">
                 <ShoppingBag size={24} className="text-brand" />
                 Your Selected Items
               </h3>
@@ -81,25 +81,25 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         key={item.id} 
-                        className="flex justify-between items-center text-sm sm:text-base border border-transparent hover:border-gray-100 hover:bg-white hover:shadow-md p-3 rounded-2xl transition-all duration-300 group"
+                        className="flex justify-between items-center gap-2 text-sm sm:text-base border border-transparent hover:border-gray-100 hover:bg-white hover:shadow-md p-3 rounded-2xl transition-all duration-300 group"
                       >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                           <span className="flex items-center justify-center bg-gray-900 text-brand font-black w-9 h-9 rounded-full shadow-inner text-sm group-hover:scale-110 transition-transform">
                             {cart[item.id]}<span className="text-xs text-white/50 ml-0.5">x</span>
                           </span>
-                          <span className="font-bold text-gray-700 text-lg group-hover:text-brand transition-colors">{item.name}</span>
+                          <span className="font-bold text-gray-700 text-base sm:text-lg leading-tight group-hover:text-brand transition-colors">{item.name}</span>
                         </div>
-                        <span className="font-black text-gray-900 text-xl font-mono tracking-tighter">
+                        <span className="font-black text-gray-900 text-lg sm:text-xl font-mono tracking-tighter">
                           ₦{(item.price * cart[item.id]).toLocaleString()}
                         </span>
                       </motion.div>
                     ))}
                   </div>
 
-                  <div className="pt-6 border-t-2 border-dashed border-gray-200 flex justify-between items-center bg-gray-50/50 -mx-6 sm:-mx-8 px-6 sm:px-8 mt-2 pb-2 rounded-b-[2rem] relative">
+                  <div className="pt-6 border-t-2 border-dashed border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 bg-gray-50/50 -mx-5 sm:-mx-8 px-5 sm:px-8 mt-2 pb-2 rounded-b-[2rem] relative">
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
                     <span className="font-black text-gray-500 uppercase tracking-widest text-sm">Total Amount</span>
-                    <span className="text-4xl font-black text-gray-900 font-mono tracking-tighter">
+                    <span className="text-3xl sm:text-4xl font-black text-gray-900 font-mono tracking-tighter">
                       ₦{totalPrice.toLocaleString()}
                     </span>
                   </div>
@@ -124,7 +124,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                 
                 <button 
                   onClick={handleTelegramCheckout}
-                  className="w-full sm:w-auto min-w-[320px] bg-gradient-to-r from-[#229ED9] to-[#1d88bb] hover:from-[#1d88bb] hover:to-[#17729d] text-white px-8 py-5 rounded-full font-black text-lg transition-all shadow-[0_10px_40px_rgba(34,158,217,0.3)] hover:shadow-[0_20px_50px_rgba(34,158,217,0.4)] hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-4 group relative overflow-hidden"
+                  className="w-full sm:w-auto sm:min-w-[320px] bg-gradient-to-r from-[#229ED9] to-[#1d88bb] hover:from-[#1d88bb] hover:to-[#17729d] text-white px-8 py-5 rounded-full font-black text-base sm:text-lg transition-all shadow-[0_10px_40px_rgba(34,158,217,0.3)] hover:shadow-[0_20px_50px_rgba(34,158,217,0.4)] hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-4 group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-white/20 w-full h-full -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                   <Send className="w-6 h-6 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform relative z-10" />

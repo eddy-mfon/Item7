@@ -20,7 +20,20 @@ html {
 }
 
 body {
+  margin: 0;
   background-color: #fafafa;
   color: #1a1a1a;
   -webkit-font-smoothing: antialiased;
+}
+html,
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }

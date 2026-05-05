@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-start pt-32 lg:pt-40 pb-24 overflow-hidden bg-[#fcfaf8]">
+    <section className="relative min-h-screen flex flex-col items-center justify-start pt-28 sm:pt-32 lg:pt-40 pb-16 sm:pb-24 overflow-hidden bg-[#fcfaf8]">
       {/* Dynamic Animated Background */}
       <div className="absolute inset-0 z-0">
         {/* Subtle Modern Grid */}
@@ -47,12 +47,12 @@ export default function HeroSection() {
       </div>
 
       {/* Hero Text */}
-      <div className="max-w-6xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-brand/20 text-brand-dark font-bold text-sm mb-8 relative overflow-hidden group"
+          className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-brand/20 text-brand-dark font-bold text-sm mb-8 relative overflow-hidden group"
         >
           <div className="absolute inset-0 bg-brand/5 group-hover:bg-brand/10 transition-colors duration-300" />
           <Flame size={16} className="text-brand relative fill-brand/20" />
@@ -65,7 +65,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="text-[3.5rem] sm:text-6xl md:text-7xl lg:text-8xl font-display font-extrabold leading-[1.05] tracking-tight text-gray-950 mb-8 relative w-full flex flex-col items-center"
+          className="text-[2.35rem] sm:text-6xl md:text-7xl lg:text-8xl font-display font-extrabold leading-[1.05] tracking-tight text-gray-950 mb-8 relative w-full flex flex-col items-center"
         >
           {/* Decorative badges around the text */}
           <div className="absolute -top-6 left-[5%] lg:left-[18%] rotate-[-6deg] opacity-90 hidden md:block pointer-events-none hover:rotate-0 transition-transform duration-500 hover:scale-105">
@@ -91,7 +91,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium"
+          className="text-base sm:text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium"
         >
           Item 7 brings premium shawarmas, hot rice platters, and sweet treats directly to you. Secure your spot before we <span className="text-brand font-black border-b-4 border-brand/30 pb-0.5">sell out.</span>
         </motion.p>
@@ -104,7 +104,7 @@ export default function HeroSection() {
         >
           <Link 
             to="/shop"
-            className="bg-gray-950 hover:bg-brand text-white hover:text-gray-950 px-10 py-5 rounded-full font-black text-lg transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_10px_40px_rgba(249,115,22,0.4)] flex items-center justify-center gap-3 group w-full sm:w-auto relative overflow-hidden"
+            className="bg-gray-950 hover:bg-brand text-white hover:text-gray-950 px-8 sm:px-10 py-4 sm:py-5 rounded-full font-black text-base sm:text-lg transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_10px_40px_rgba(249,115,22,0.4)] flex items-center justify-center gap-3 group w-full sm:w-auto relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-brand opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-0" />
             <span className="relative z-10 flex items-center gap-3">
@@ -114,7 +114,7 @@ export default function HeroSection() {
           </Link>
           <Link 
             to="/shop"
-            className="bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-100 hover:border-gray-200 px-10 py-5 rounded-full font-bold text-lg transition-all duration-300 shadow-sm hover:shadow-md w-full sm:w-auto flex items-center justify-center"
+            className="bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-100 hover:border-gray-200 px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-base sm:text-lg transition-all duration-300 shadow-sm hover:shadow-md w-full sm:w-auto flex items-center justify-center"
           >
             Explore Menu
           </Link>
@@ -205,11 +205,11 @@ export default function HeroSection() {
       </div>
 
       {/* Mobile Single Image Fallback */}
-      <div className="w-full px-6 relative z-10 md:hidden pb-12 mt-4">
+      <div className="w-full px-4 sm:px-6 relative z-10 md:hidden pb-12 mt-4">
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="h-[400px] rounded-[2.5rem] overflow-hidden relative shadow-2xl group bg-gradient-to-br from-orange-300 via-rose-300 to-rose-400"
+            className="h-[320px] sm:h-[400px] rounded-[2.5rem] overflow-hidden relative shadow-2xl group bg-gradient-to-br from-orange-300 via-rose-300 to-rose-400"
           >
             <img 
               src="/images/chicken-shawarma.png" 

@@ -4,7 +4,7 @@ import { Instagram, Phone, Mail, ArrowUpRight, MapPin, Clock } from 'lucide-reac
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-950 text-white pt-24 pb-12 relative overflow-hidden flex flex-col items-center">
+    <footer className="bg-gray-950 text-white pt-20 sm:pt-24 pb-12 relative overflow-hidden flex flex-col items-center">
       {/* Top Gradient line */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
       
@@ -12,14 +12,14 @@ export default function Footer() {
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-brand/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-[80px] pointer-events-none" />
 
-      <div className="w-full max-w-7xl px-6 relative z-10 flex flex-col">
+      <div className="w-full max-w-7xl px-4 sm:px-6 relative z-10 flex flex-col">
         
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 sm:gap-16 mb-20 sm:mb-24">
           
           {/* Brand & Tagline */}
           <div className="md:col-span-5 flex flex-col items-start text-left">
-            <h2 className="text-6xl md:text-8xl leading-none font-display font-black tracking-tighter text-white hover:text-brand transition-colors duration-500 cursor-default select-none mb-6">
+            <h2 className="text-5xl sm:text-6xl md:text-8xl leading-none font-display font-black tracking-tighter text-white hover:text-brand transition-colors duration-500 cursor-default select-none mb-6">
               ITEM 7
             </h2>
             <p className="text-gray-400 text-lg font-medium max-w-sm mb-10 leading-relaxed">
@@ -111,7 +111,7 @@ export default function Footer() {
           <p className="text-gray-500 mb-4 md:mb-0 text-center md:text-left flex items-center gap-1.5">
             Crafted with love for students by Item 7 © {new Date().getFullYear()}
           </p>
-          <div className="flex gap-6 text-gray-500">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-gray-500">
             <a href="#" className="hover:text-brand transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-brand transition-colors">Terms of Service</a>
           </div>

@@ -50,13 +50,13 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="py-32 bg-white relative overflow-hidden">
+    <section id="about" className="py-20 sm:py-32 bg-white relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-1/2 h-[500px] bg-gradient-to-br from-brand/5 to-transparent rounded-bl-full pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-gradient-to-tr from-yellow-100/40 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +72,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl font-display font-black text-gray-950 mb-6 leading-[1.1] tracking-tighter"
+            className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-gray-950 mb-6 leading-[1.1] tracking-tighter"
           >
             Why Choose <span className="text-brand inline-block">Item 7?</span>
           </motion.h2>
@@ -82,14 +82,14 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-gray-500 leading-relaxed font-medium"
+            className="text-lg sm:text-xl text-gray-500 leading-relaxed font-medium"
           >
             Item 7 is not just food; it's a campus movement. We bring restaurant-quality 
             meals directly to your school, making sure you stay fueled for your studies without breaking the bank.
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-24">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-16 sm:mb-24">
           {features.map((feature, idx) => (
             <motion.div 
               key={idx}
@@ -98,13 +98,13 @@ export default function AboutSection() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: idx * 0.1, duration: 0.5, type: 'spring', damping: 20, stiffness: 100 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-gray-100 transition-all group"
+              className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-gray-100 transition-all group"
             >
               <div className={`w-14 h-14 ${feature.color} border ${feature.border} rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform`}>
                 {feature.icon}
               </div>
               
-              <h3 className="text-2xl font-black text-gray-950 mb-3 tracking-tight">{feature.title}</h3>
+              <h3 className="text-xl sm:text-2xl font-black text-gray-950 mb-3 tracking-tight">{feature.title}</h3>
               <p className="text-gray-500 font-medium leading-relaxed">
                 {feature.description}
               </p>
@@ -117,7 +117,7 @@ export default function AboutSection() {
            initial={{ opacity: 0, y: 40 }}
            whileInView={{ opacity: 1, y: 0 }}
            viewport={{ once: true }}
-           className="bg-gray-950 rounded-[3rem] min-h-[500px] p-10 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center gap-10 shadow-2xl mx-auto mt-16"
+           className="bg-gray-950 rounded-[2.2rem] sm:rounded-[3rem] min-h-[420px] sm:min-h-[500px] p-8 sm:p-10 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center gap-8 sm:gap-10 shadow-2xl mx-auto mt-12 sm:mt-16"
         >
           {/* Background pattern inside CTA */}
           <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'radial-gradient(#fff 2px, transparent 2px)', backgroundSize: '30px 30px' }} />
@@ -131,17 +131,17 @@ export default function AboutSection() {
           </div>
 
           <div className="relative z-10 max-w-3xl">
-            <h2 className="text-5xl md:text-7xl font-display font-black text-white mb-6 tracking-tighter leading-[1.1]">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black text-white mb-6 tracking-tighter leading-[1.1]">
               Skip the line.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-rose-400">Secure your spot.</span>
             </h2>
-            <p className="text-gray-300 text-xl font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-gray-300 text-lg sm:text-xl font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
               Don't leave your cravings to chance. Pre-order now and guarantee your meal for the biggest popup on campus.
             </p>
             
             <Link 
               to="/shop" 
-              className="inline-flex bg-brand hover:bg-white text-gray-950 px-10 py-5 rounded-full font-black text-xl transition-all hover:scale-105 active:scale-95 items-center justify-center gap-3 shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] w-full sm:w-auto"
+              className="inline-flex bg-brand hover:bg-white text-gray-950 px-8 sm:px-10 py-4 sm:py-5 rounded-full font-black text-lg sm:text-xl transition-all hover:scale-105 active:scale-95 items-center justify-center gap-3 shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] w-full sm:w-auto"
             >
               Order Now <ArrowRight size={24} className="text-gray-950" />
             </Link>
