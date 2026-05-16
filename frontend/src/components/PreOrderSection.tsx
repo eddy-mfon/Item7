@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Utensils, CheckCircle2, ChevronRight, ShoppingBag, Send } from 'lucide-react';
+import { Utensils, CheckCircle2, ChevronRight, ShoppingBag, Send, Minus, Plus } from 'lucide-react';
 import { CartState } from '../App';
 
 type MenuItem = {
@@ -19,10 +19,54 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
   const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
   const totalPrice = items.reduce((total, item) => total + (item.price * cart[item.id]), 0);
 
-  const handleTelegramCheckout = () => {
-    if (totalItems === 0) return;
+  const [formData, setFormData] = React.useState({
+    name: '',
+    phone: '',
+    address: '',
+    email: '',
+    matricNumber: '',
+    roomNumber: ''
+  });
+  const [isInitializing, setIsInitializing] = React.useState(false);
 
-    window.open('https://t.me/item7preordersbot', '_blank');
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handlePayment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (totalItems === 0) return;
+    
+    setIsInitializing(true);
+    
+    const orderDetails = items
+      .filter(item => cart[item.id] > 0)
+      .map(item => `${item.name} (${cart[item.id]}x)`)
+      .join('\n');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/pay', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          orderDetails,
+          amount: totalPrice,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.checkout_url) {
+        window.location.href = data.checkout_url;
+      } else {
+        alert('Failed to initialize payment. Please check if the backend is running.');
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Could not connect to the payment server. Ensure the backend is running on port 5000.');
+    } finally {
+      setIsInitializing(false);
+    }
   };
 
   return (
@@ -43,7 +87,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-gray-900 mb-4">
               Finalize Your Order
             </h2>
-            <p className="text-gray-600 font-medium">Review your cart and continue to Telegram to secure your order.</p>
+            <p className="text-gray-600 font-medium">Review your cart and provide delivery details to proceed.</p>
           </motion.div>
 
           <div className="max-w-2xl mx-auto">
@@ -83,11 +127,32 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                         key={item.id} 
                         className="flex justify-between items-center gap-2 text-sm sm:text-base border border-transparent hover:border-gray-100 hover:bg-white hover:shadow-md p-3 rounded-2xl transition-all duration-300 group"
                       >
-                        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                          <span className="flex items-center justify-center bg-gray-900 text-brand font-black w-9 h-9 rounded-full shadow-inner text-sm group-hover:scale-110 transition-transform">
-                            {cart[item.id]}<span className="text-xs text-white/50 ml-0.5">x</span>
-                          </span>
-                          <span className="font-bold text-gray-700 text-base sm:text-lg leading-tight group-hover:text-brand transition-colors">{item.name}</span>
+                        <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                          <div className="flex items-center bg-gray-50/80 rounded-[18px] p-1 border border-gray-100 group-hover:border-brand/20 transition-all shadow-sm">
+                            <button 
+                              onClick={() => updateQuantity(item.id, -1)}
+                              className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-brand hover:bg-white rounded-[14px] transition-all shadow-transparent hover:shadow-sm"
+                            >
+                              <Minus size={14} strokeWidth={3} />
+                            </button>
+                            
+                            <motion.span 
+                              key={cart[item.id]}
+                              initial={{ y: 2, opacity: 0 }}
+                              animate={{ y: 0, opacity: 1 }}
+                              className="w-7 text-center font-black text-gray-900 text-sm font-mono"
+                            >
+                              {cart[item.id]}
+                            </motion.span>
+
+                            <button 
+                              onClick={() => updateQuantity(item.id, 1)}
+                              className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-brand hover:bg-white rounded-[14px] transition-all shadow-transparent hover:shadow-sm"
+                            >
+                              <Plus size={14} strokeWidth={3} />
+                            </button>
+                          </div>
+                          <span className="font-bold text-gray-700 text-base sm:text-lg leading-tight group-hover:text-brand transition-colors truncate">{item.name}</span>
                         </div>
                         <span className="font-black text-gray-900 text-lg sm:text-xl font-mono tracking-tighter">
                           ₦{(item.price * cart[item.id]).toLocaleString()}
@@ -108,35 +173,117 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
             </motion.div>
 
             {totalItems > 0 && (
-              <motion.div 
+              <motion.form 
+                onSubmit={handlePayment}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="flex flex-col items-center relative"
+                className="space-y-6"
               >
-                <div className="bg-[#229ED9]/5 border border-[#229ED9]/20 rounded-3xl p-6 mb-8 w-full text-center relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#229ED9]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <p className="text-[#229ED9] font-bold text-sm tracking-wide relative z-10">
-                    Just one tap away from securing your meal!
-                  </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Full Name</label>
+                    <input 
+                      required
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Enter your full name"
+                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Phone Number</label>
+                    <input 
+                      required
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      placeholder="e.g. 08012345678"
+                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                    />
+                  </div>
                 </div>
-                
-                <button 
-                  onClick={handleTelegramCheckout}
-                  className="w-full sm:w-auto sm:min-w-[320px] bg-gradient-to-r from-[#229ED9] to-[#1d88bb] hover:from-[#1d88bb] hover:to-[#17729d] text-white px-8 py-5 rounded-full font-black text-base sm:text-lg transition-all shadow-[0_10px_40px_rgba(34,158,217,0.3)] hover:shadow-[0_20px_50px_rgba(34,158,217,0.4)] hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-4 group relative overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-white/20 w-full h-full -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                  <Send className="w-6 h-6 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform relative z-10" />
-                  <span className="relative z-10">Complete on Telegram</span>
-                </button>
-                <div className="flex items-center gap-2 mt-6 bg-emerald-50 text-emerald-600 px-4 py-2 rounded-full border border-emerald-100/50">
-                  <CheckCircle2 size={16} className="text-emerald-500" />
-                  <p className="text-sm font-bold uppercase tracking-wider">
-                    Payment collected on-site
-                  </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Email Address</label>
+                    <input 
+                      required
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Enter your email"
+                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Matric Number</label>
+                    <input 
+                      required
+                      name="matricNumber"
+                      value={formData.matricNumber}
+                      onChange={handleInputChange}
+                      placeholder="e.g. 21/0000"
+                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                    />
+                  </div>
                 </div>
-              </motion.div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Room Number</label>
+                    <input 
+                      required
+                      name="roomNumber"
+                      value={formData.roomNumber}
+                      onChange={handleInputChange}
+                      placeholder="e.g. A101"
+                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700 ml-1">Hostel/Location</label>
+                    <input 
+                      required
+                      name="address"
+                      value={formData.address}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Daniel Hall"
+                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-4 flex flex-col items-center">
+                  <button 
+                    disabled={isInitializing}
+                    type="submit"
+                    className="w-full sm:w-auto sm:min-w-[320px] bg-gradient-to-r from-brand to-orange-600 text-white px-8 py-5 rounded-full font-black text-base sm:text-lg transition-all shadow-[0_10px_40px_rgba(255,107,53,0.3)] hover:shadow-[0_20px_50px_rgba(255,107,53,0.4)] hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-4 group relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {isInitializing ? (
+                      <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Initializing...</span>
+                      </div>
+                    ) : (
+                      <>
+                        <Send className="w-6 h-6 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                        <span>Pay & Place Order</span>
+                      </>
+                    )}
+                  </button>
+                  
+                  <div className="flex items-center gap-4 mt-8 opacity-60">
+                    <img src="https://flutterwave.com/images/logo/logo-colored.svg" alt="Flutterwave" className="h-4" />
+                    <div className="w-[1px] h-4 bg-gray-300" />
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Secure Payment</p>
+                  </div>
+                </div>
+              </motion.form>
             )}
           </div>
         </div>
