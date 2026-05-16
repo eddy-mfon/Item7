@@ -44,7 +44,7 @@ async def initialize_payment(payload: FrontendPayRequest):
             "tx_ref": tx_ref,
             "amount": payload.amount,
             "currency": "NGN",
-            "redirect_url": "http://localhost:3000/order-success", 
+            "redirect_url": "http://localhost:3000/", 
             "customer": {
                 "email": customer_email,
                 "phone_number": payload.phone,

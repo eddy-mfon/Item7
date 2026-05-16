@@ -11,14 +11,22 @@ async def send_telegram_notification(order_info: dict):
     and fires it down into the Telegram Admin channel.
     """
     message = (
-        f"🚨 <b>NEW PAID ORDER RECEIVED</b> 🚨\n\n"
-        f"👤 <b>Customer:</b> {order_info.get('name')}\n"
-        f"📞 <b>Phone:</b> {order_info.get('phone')}\n"
-        f"📞 <b>MATRIC No:</b> {order_info.get('matricno')}\n"
-        f"📍 <b>Hall:</b> {order_info.get('hall')}, Room No {order_info.get('roomno')}\n"
-        f"🛍️ <b>Items Ordered:</b>\n{order_info.get('orderdetails')}\n\n"
-        f"💰 <b>Paid Amount:</b> NGN {order_info.get('amountpaid')}\n"
-        f"🔖 <b>Ref IDs:</b> <code>{order_info.get('tx_ref')}</code>"
+        f"🚨 NEW PAID ORDER RECEIVED</b> 🚨\n\n"
+        f"👤 Customer: {order_info.get('name')}\n"
+        f"📞 Phone: {order_info.get('phone')}\n"
+        f"📞 MATRIC No: {order_info.get('matricno')}\n"
+        f"📍 Hall: {order_info.get('hall')}, Room No {order_info.get('roomno')}\n"
+        f"🛍️ Items Ordered:\n{order_info.get('orderdetails')}\n\n"
+        f"💰 Paid Amount: NGN {order_info.get('amountpaid')}\n"
+        f"🔖 Ref IDs: <code>{order_info.get('tx_ref')}</code>"
+        # -----------------------
+        # f"🔔 ITEM 7 NEW ORDER 🔔\n\n"
+        # f"Customer: {order_info.get('name')}\n"
+        # f"Phone: {order_info.get('phone')}\n"
+        # f"Location: {order_info.get('location')} (House: {order_info.get('housenumber')})\n"
+        # f"Items: {order_info.get('orderdetails')}\n"
+        # f"Amount: NGN {order_info.get('amountpaid')}\n"
+        # f"Ref: {order_info.get('tx_ref')}"
     )
     
     telegram_api_url = f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -31,6 +39,8 @@ async def send_telegram_notification(order_info: dict):
     async with httpx.AsyncClient() as client:
         try:
             response = await client.post(telegram_api_url, json=payload, timeout=10.0)
+            print(f"DEBUG: Telegram API response code: {response.status_code}")
+            print(f"DEBUG: Telegram API response body: {response.text}")
             response.raise_for_status()
         except httpx.HTTPError:
             # Silent logging on network failure so API endpoint never crashes for external gateway
@@ -47,7 +57,7 @@ async def process_flutterwave_payment_webhook(
     Listens directly to server updates from Flutterwave.
     """
     # 1. Enforce Webhook Header signature validation
-    if not verif_hash or verif_hash != settings.FLUTTERWAVE_SECRET_HASH:
+    if not verif_hash or verif_hash != settings.FLW_SECRET_HASH:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Signature validation handshake mismatch."
@@ -76,10 +86,17 @@ async def process_flutterwave_payment_webhook(
             return {"status": "ignored", "reason": "Already processed transaction pattern."}
 
         # 4. Atomic Database Updates via Supabase client
+        print(f"DEBUG: Webhook verified for ref {tx_ref}. Updating DB status...")
         updated_order = supabase.table("orders").update({"status": "paid"}).eq("tx_ref", tx_ref).execute()
         
         if updated_order.data:
-            # 5. Delegate slow HTTP notifications out to non-blocking worker threads
-            background_tasks.add_task(send_telegram_notification, updated_order.data[0])
+            order_data = updated_order.data[0]
+            print(f"DEBUG: DB updated successfully to paid! Data: {order_data}")
+            
+            # 🌟 BYPASS BACKGROUND WORKER: Run it immediately in-line to force error visibility
+            print("DEBUG: Invoking Telegram dispatch function...")
+            await send_telegram_notification(order_data)
+        else:
+            print("DEBUG: Supabase update failed or returned empty data.")
 
     return {"status": "acknowledged"}
