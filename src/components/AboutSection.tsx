@@ -84,8 +84,8 @@ export default function AboutSection() {
             transition={{ delay: 0.2 }}
             className="text-lg sm:text-xl text-gray-500 leading-relaxed font-medium"
           >
-            Item 7 is not just food; it's a campus movement. We bring restaurant-quality 
-            meals directly to your school, making sure you stay fueled for your studies without breaking the bank.
+            Item 7 is not just food; it's a campus movement. We bring the best, most premium shawarmas 
+            directly to your school, making sure you stay fueled for your studies without breaking the bank.
           </motion.p>
         </div>
 
@@ -127,7 +127,7 @@ export default function AboutSection() {
             <img src="/images/chicken-shawarma.png" alt="" className="w-full h-full object-contain -rotate-12"/>
           </div>
           <div className="absolute -right-20 bottom-10 w-72 h-72 opacity-20 blur-sm mix-blend-screen pointer-events-none hidden md:block">
-             <img src="/images/rice-chicken.png" alt="" className="w-full h-full object-contain rotate-12"/>
+             <img src="/images/beef-shawarma.png" alt="" className="w-full h-full object-contain rotate-12"/>
           </div>
 
           <div className="relative z-10 max-w-3xl">
