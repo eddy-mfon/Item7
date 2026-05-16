@@ -8,6 +8,7 @@ class Settings(BaseSettings):
 
     # Flutterwave Configuration
     FLW_SECRET_HASH: str
+    FW_SECRET_KEY: str  # Added to authenticate outbound API requests
 
     # Telegram Configuration
     TELEGRAM_BOT_TOKEN: str

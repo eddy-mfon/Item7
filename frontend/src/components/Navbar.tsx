@@ -121,11 +121,19 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
               <div className="absolute inset-0 bg-white/25 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
               <div className="relative flex items-center justify-center z-10">
                 <ShoppingBag size={20} className="group-hover:-translate-y-1 group-hover:rotate-12 transition-transform duration-300 text-gray-950 stroke-[2.5]" />
-                {totalItems > 0 && (
-                  <span className="absolute -top-2.5 -right-2.5 bg-gray-950 text-white text-[10px] font-black w-5 h-5 min-w-[20px] rounded-full flex items-center justify-center border-2 border-brand shadow-sm animate-in zoom-in">
-                    {totalItems}
-                  </span>
-                )}
+                <AnimatePresence mode="popLayout">
+                  {totalItems > 0 && (
+                    <motion.span 
+                      key={totalItems}
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.5, opacity: 0 }}
+                      className="absolute -top-3 -right-3 bg-white text-brand text-[11px] font-black w-6 h-6 min-w-[24px] rounded-full flex items-center justify-center border-2 border-brand shadow-[0_4px_10px_rgba(0,0,0,0.1)] z-20"
+                    >
+                      {totalItems}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </div>
               <span className="relative z-10 hidden lg:block tracking-tight text-[16px] uppercase">Order Now</span>
             </Link>
@@ -144,11 +152,19 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
                 <div className="absolute inset-0 bg-white/25 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                 <ShoppingBag size={17} className="relative z-10 xs:w-5 xs:h-5 group-hover:-translate-y-0.5 group-hover:rotate-12 transition-transform duration-300 stroke-[2.5]" />
               </Link>
-              {totalItems > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 z-20 bg-gray-950 text-white text-[9px] xs:text-[10px] font-black w-4 h-4 xs:w-5 xs:h-5 flex items-center justify-center rounded-full border-[1.5px] xs:border-2 border-brand shadow-sm animate-in zoom-in">
-                  {totalItems}
-                </span>
-              )}
+              <AnimatePresence mode="popLayout">
+                {totalItems > 0 && (
+                  <motion.span 
+                    key={totalItems}
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.5, opacity: 0 }}
+                    className="absolute -top-2 -right-2 z-20 bg-white text-brand text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-brand shadow-[0_3px_8px_rgba(0,0,0,0.15)]"
+                  >
+                    {totalItems}
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </div>
             
             <button

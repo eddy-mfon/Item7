@@ -13,6 +13,7 @@ import MenuSection from './components/MenuSection';
 import PreOrderSection from './components/PreOrderSection';
 import Footer from './components/Footer';
 import CountdownPopup from './components/CountdownPopup';
+import PaymentSuccessModal from './components/PaymentSuccessModal';
 
 export type CartState = {
   [key: string]: number;
@@ -32,34 +33,6 @@ export const MENU_ITEMS = [
     description: 'Tender grilled chicken wrapped with fresh vegetables and creamy garlic sauce.',
     price: 5000,
     image: '/images/chicken-shawarma.png',
-  },
-  {
-    id: 'rice-chicken',
-    name: 'A Plate with Chicken',
-    description: 'Flavorful rice served with well-seasoned, golden-fried chicken. A campus classic.',
-    price: 5000,
-    image: '/images/rice-chicken.png',
-  },
-  {
-    id: 'rice-fish',
-    name: 'A Plate with Fish',
-    description: 'Delicious hot rice paired with a large, perfectly spiced roasted croaker fish.',
-    price: 4000,
-    image: '/images/rice-fish.png',
-  },
-  {
-    id: 'cotton-candy',
-    name: 'Cotton Candy',
-    description: 'Sweet, fluffy cotton candy dissolving in your mouth like a pink cloud.',
-    price: 1500,
-    image: '/images/cotton-candy.png',
-  },
-  {
-    id: 'slush',
-    name: 'Slushie',
-    description: 'Ice cold and refreshing brightly colored slushie, perfect for a sunny day.',
-    price: 1500,
-    image: '/images/slush.png',
   }
 ];
 
@@ -77,11 +50,27 @@ function AppContent() {
   const [cart, setCart] = useState<CartState>({
     'beef-shawarma': 0,
     'chicken-shawarma': 0,
-    'rice-chicken': 0,
-    'rice-fish': 0,
-    'cotton-candy': 0,
-    'slush': 0,
   });
+
+  const location = useLocation();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('status') === 'success') {
+      setShowSuccessModal(true);
+      
+      // Clean up URL without triggering a reload
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, '', newUrl);
+      
+      // Clear the cart
+      setCart({
+        'beef-shawarma': 0,
+        'chicken-shawarma': 0,
+      });
+    }
+  }, [location.search]);
 
   const updateQuantity = (id: string, delta: number) => {
     setCart(prev => ({
@@ -100,6 +89,11 @@ function AppContent() {
       <div className="absolute bottom-[20%] right-[-10%] w-[60vw] md:w-[30vw] h-[60vw] md:h-[30vw] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none z-0 mix-blend-multiply" />
 
       <Navbar totalItems={totalItems} />
+
+      <PaymentSuccessModal 
+        isOpen={showSuccessModal} 
+        onClose={() => setShowSuccessModal(false)} 
+      />
       
       <main className="flex-1 relative z-10">
         <Routes>

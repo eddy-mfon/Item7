@@ -93,7 +93,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-base sm:text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed font-medium"
         >
-          Item 7 brings premium shawarmas, hot rice platters, and sweet treats directly to you. Secure your spot before we <span className="text-brand font-black border-b-4 border-brand/30 pb-0.5">sell out.</span>
+          Item 7 brings premium, mouth-watering beef and chicken shawarmas directly to you. Secure your spot before we <span className="text-brand font-black border-b-4 border-brand/30 pb-0.5">sell out.</span>
         </motion.p>
 
         <motion.div
@@ -124,12 +124,12 @@ export default function HeroSection() {
       {/* Bento Layout Images */}
       <div className="w-full max-w-7xl mx-auto px-6 relative z-10 hidden md:block">
         <div className="grid grid-cols-12 gap-6 h-[500px]">
-          {/* Left Large Column (Shawarma) */}
+          {/* Left Large Column (Beef Shawarma) */}
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="col-span-5 h-[500px] rounded-[2.5rem] overflow-hidden relative shadow-2xl group translate-y-12 bg-gradient-to-br from-orange-300 via-rose-300 to-rose-400"
+            className="col-span-5 h-[500px] rounded-[2.5rem] overflow-hidden relative shadow-2xl group translate-y-6 bg-gradient-to-br from-orange-300 via-rose-300 to-rose-400"
           >
             <img 
               src="/images/beef-shawarma.png"
@@ -146,33 +146,18 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Center Stackable Column (Rice & Stacked card) */}
-          <div className="col-span-4 flex flex-col gap-6 h-[500px]">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="h-[55%] rounded-[2.5rem] overflow-hidden relative shadow-xl group bg-gradient-to-br from-yellow-300 via-amber-300 to-orange-400"
-            >
-              <img 
-                src="/images/rice-chicken.png"
-                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-2xl translate-y-4"
-                alt="Rice and Chicken" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
-              <div className="absolute bottom-5 left-5 text-white font-bold text-xl">Rice & Chicken</div>
-            </motion.div>
-
+          {/* Center Column (Stats) */}
+          <div className="col-span-3 flex flex-col justify-center h-[500px]">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="h-[45%] bg-brand rounded-[2.5rem] relative p-8 flex flex-col justify-center items-center text-white shadow-xl overflow-hidden"
+              className="h-[60%] bg-brand rounded-[2.5rem] relative p-8 flex flex-col justify-center items-center text-white shadow-xl overflow-hidden"
             >
               <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.8)_0%,transparent_100%)] blur-md" />
               <div className="text-5xl font-black mb-1 relative z-10">200+</div>
               <div className="text-white/90 font-medium text-lg text-center leading-tight relative z-10 max-w-[150px]">
-                Portions already secured
+                Pre-orders secured
               </div>
               <div className="flex gap-1 mt-4 text-yellow-300 relative z-10">
                 <Star className="fill-current" size={18}/>
@@ -184,21 +169,22 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right Column (Slush/Croaker fish or another tall setup) */}
+          {/* Right Column (Chicken Shawarma) */}
           <motion.div 
             initial={{ opacity: 0, y: 0 }}
-            animate={{ opacity: 1, y: -40 }}
+            animate={{ opacity: 1, y: -20 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="col-span-3 h-[500px] rounded-[2.5rem] overflow-hidden relative shadow-2xl group bg-gradient-to-br from-emerald-300 via-teal-300 to-emerald-500"  
+            className="col-span-4 h-[500px] rounded-[2.5rem] overflow-hidden relative shadow-2xl group bg-gradient-to-br from-yellow-300 via-amber-300 to-orange-400"  
           >
              <img 
-              src="/images/rice-fish.png"
-              className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-2xl translate-y-8"
-              alt="Croaker Fish" 
+              src="/images/chicken-shawarma.png"
+              className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-2xl translate-y-4"
+              alt="Chicken Shawarma" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
             <div className="absolute bottom-6 left-6 text-white pr-4">
-              <h3 className="text-2xl font-black mb-1 leading-tight">Croaker Fish</h3>
+              <h3 className="text-2xl font-black mb-1 leading-tight">Chicken Shawarma</h3>
+              <p className="text-white/80 font-medium">Tender grilled chicken</p>
             </div>
           </motion.div>
         </div>

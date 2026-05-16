@@ -126,10 +126,10 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
                     </motion.button>
                     <motion.span 
                       key={cart[item.id]} 
-                      initial={{ scale: 0.5, opacity: 0 }} 
-                      animate={{ scale: 1, opacity: 1 }} 
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      className="font-black text-xl w-12 text-center text-gray-950"
+                      initial={{ y: 10, opacity: 0 }} 
+                      animate={{ y: 0, opacity: 1 }} 
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      className="font-black text-2xl w-14 text-center text-gray-950 font-display tabular-nums"
                     >
                       {cart[item.id]}
                     </motion.span>
@@ -166,6 +166,7 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
           );
         })}
       </div>
+
 
       {/* Tradefair Exclusive Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 border-t border-gray-200 pt-16 sm:pt-24">
@@ -330,7 +331,6 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
           </motion.div>
         </div>
       </div>
-
       </div>
     </section>
   );

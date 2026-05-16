@@ -1,32 +1,35 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError # <-- Add this import
+from fastapi.responses import JSONResponse            # <-- Add this import
 import uvicorn
 from routers import orders, webhooks
 
-# Instantiate high-performance core app engine
-app = FastAPI(
-    title="Core Secure Commerce Order API", 
-    version="2026.1.0",
-    description="Production-ready asynchronous checkout interface managing Supabase & Flutterwave integrations."
-)
+app = FastAPI(title="Core Checkout Engine", version="2026.1.0")
 
-# Configure Cross-Origin Resource Sharing (CORS) policies so Flutter/Web clients can interact freely
+# 🚨 TEMPORARY DEBUGGER: Prints exactly what field failed Pydantic validation
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    print("\n🚨 --- FASTAPI VALIDATION ERROR --- 🚨")
+    for error in exc.errors():
+        print(f"❌ Field Location: {error['loc']}")
+        print(f"❌ Error Message:  {error['msg']}")
+        print(f"❌ Error Type:     {error['type']}\n")
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors()}
+    )
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In strict production setups, specify explicit production UI domains
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Route Declarations Mounting Structure
 app.include_router(orders.router)
 app.include_router(webhooks.router)
 
-@app.get("/", tags=["Health Verification Check"])
-async def server_health_check():
-    return {"status": "online", "engine": "FastAPI ASGI Architecture"}
-
 if __name__ == "__main__":
-    # Launch internal local process server configuration bindings
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=5000, reload=True)
