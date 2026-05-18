@@ -19,6 +19,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
   const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
   const totalPrice = items.reduce((total, item) => total + (item.price * cart[item.id]), 0);
 
+  // State management: stores form data, loading state, and validation errors
   const [formData, setFormData] = React.useState({
     name: '',
     phone: '',
@@ -28,24 +29,71 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
     roomNumber: ''
   });
   const [isInitializing, setIsInitializing] = React.useState(false);
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
 
+  // Updates form data on input change and clears error for that field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    if (errors[e.target.name]) {
+      setErrors(prev => ({ ...prev, [e.target.name]: '' }));
+    }
   };
 
+  // Validates all form fields: name (min 3 chars), phone (11-digit Nigerian format), email format, matric number (XX/XXXX), room number, and address
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Full name is required';
+    } else if (formData.name.trim().length < 3) {
+      newErrors.name = 'Name must be at least 3 characters';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!/^0[0-9]{10}$/.test(formData.phone.replace(/\s/g, ''))) {
+      newErrors.phone = 'Enter a valid 11-digit Nigerian phone number';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Enter a valid email address';
+    }
+
+    if (!formData.matricNumber.trim()) {
+      newErrors.matricNumber = 'Matric number is required';
+    } else if (!/^\d{2}\/\d{4}$/.test(formData.matricNumber)) {
+      newErrors.matricNumber = 'Use format: 21/0000';
+    }
+
+    if (!formData.roomNumber.trim()) {
+      newErrors.roomNumber = 'Room number is required';
+    }
+
+    if (!formData.address.trim()) {
+      newErrors.address = 'Hostel/Location is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handles form submission: validates input, formats order details, sends to backend, and redirects to Flutterwave checkout if successful
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (totalItems === 0) return;
-    
+    if (!validateForm()) return;
+
     setIsInitializing(true);
-    
+
     const orderDetails = items
       .filter(item => cart[item.id] > 0)
       .map(item => `${item.name} (${cart[item.id]}x)`)
       .join('\n');
 
     try {
-      const response = await fetch('http://localhost:5000/api/pay', {
+      const response = await fetch('https://my-backend-1-s57s.onrender.com/api/pay', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -70,6 +118,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
   };
 
   return (
+    {/* Checkout section: displays order summary, cart items, and delivery form */}
     <section id="checkout" className="py-16 sm:py-24 bg-white relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-brand/5 -skew-x-12 translate-x-16" />
@@ -91,7 +140,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
           </motion.div>
 
           <div className="max-w-2xl mx-auto">
-            {/* Order Summary */}
+            {/* Order Summary Block: displays cart items with quantity controls or empty state with "Explore Menu" button */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -109,8 +158,9 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                   <div className="w-24 h-24 bg-gray-50 text-gray-300 rounded-full flex items-center justify-center mb-6 shadow-inner ring-4 ring-gray-50/50">
                     <Utensils size={40} />
                   </div>
+                  {/* Empty cart state: shows when no items selected */}
                   <p className="text-gray-500 font-medium mb-8 text-lg">Your tray is empty.<br/>Browse our menu to start your order.</p>
-                  <button 
+                  <button
                     onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
                     className="bg-gray-900 hover:bg-brand text-white px-8 py-4 rounded-full font-bold transition-all text-sm shadow-xl shadow-gray-900/10 hover:-translate-y-1"
                   >
@@ -119,6 +169,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                 </div>
               ) : (
                 <>
+                  {/* Cart items list: renders each item with minus/plus quantity buttons and total price */}
                   <div className="space-y-3 mb-8">
                     {items.map(item => cart[item.id] > 0 && (
                       <motion.div 
@@ -161,6 +212,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                     ))}
                   </div>
 
+                  {/* Total Price Display: shows sum of all cart items */}
                   <div className="pt-6 border-t-2 border-dashed border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 bg-gray-50/50 -mx-5 sm:-mx-8 px-5 sm:px-8 mt-2 pb-2 rounded-b-[2rem] relative">
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
                     <span className="font-black text-gray-500 uppercase tracking-widest text-sm">Total Amount</span>
@@ -173,7 +225,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
             </motion.div>
 
             {totalItems > 0 && (
-              <motion.form 
+              <motion.form
                 onSubmit={handlePayment}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -181,84 +233,92 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                 transition={{ delay: 0.2 }}
                 className="space-y-6"
               >
+                {/* Delivery Form Block: collects user information (name, phone, email, matric, room, address) with validation */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">Full Name</label>
-                    <input 
+                    <input
                       required
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Enter your full name"
-                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                      className={`w-full px-5 py-4 rounded-2xl bg-gray-50 border transition-all font-medium focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none ${errors.name ? 'border-red-500 bg-red-50' : 'border-gray-100'}`}
                     />
+                    {errors.name && <p className="text-xs text-red-600 ml-1">{errors.name}</p>}
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">Phone Number</label>
-                    <input 
+                    <input
                       required
                       name="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="e.g. 08012345678"
-                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                      className={`w-full px-5 py-4 rounded-2xl bg-gray-50 border transition-all font-medium focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none ${errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-100'}`}
                     />
+                    {errors.phone && <p className="text-xs text-red-600 ml-1">{errors.phone}</p>}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">Email Address</label>
-                    <input 
+                    <input
                       required
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="Enter your email"
-                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                      className={`w-full px-5 py-4 rounded-2xl bg-gray-50 border transition-all font-medium focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none ${errors.email ? 'border-red-500 bg-red-50' : 'border-gray-100'}`}
                     />
+                    {errors.email && <p className="text-xs text-red-600 ml-1">{errors.email}</p>}
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">Matric Number</label>
-                    <input 
+                    <input
                       required
                       name="matricNumber"
                       value={formData.matricNumber}
                       onChange={handleInputChange}
                       placeholder="e.g. 21/0000"
-                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                      className={`w-full px-5 py-4 rounded-2xl bg-gray-50 border transition-all font-medium focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none ${errors.matricNumber ? 'border-red-500 bg-red-50' : 'border-gray-100'}`}
                     />
+                    {errors.matricNumber && <p className="text-xs text-red-600 ml-1">{errors.matricNumber}</p>}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">Room Number</label>
-                    <input 
+                    <input
                       required
                       name="roomNumber"
                       value={formData.roomNumber}
                       onChange={handleInputChange}
                       placeholder="e.g. A101"
-                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                      className={`w-full px-5 py-4 rounded-2xl bg-gray-50 border transition-all font-medium focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none ${errors.roomNumber ? 'border-red-500 bg-red-50' : 'border-gray-100'}`}
                     />
+                    {errors.roomNumber && <p className="text-xs text-red-600 ml-1">{errors.roomNumber}</p>}
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-gray-700 ml-1">Hostel/Location</label>
-                    <input 
+                    <input
                       required
                       name="address"
                       value={formData.address}
                       onChange={handleInputChange}
                       placeholder="e.g. Daniel Hall"
-                      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none transition-all font-medium"
+                      className={`w-full px-5 py-4 rounded-2xl bg-gray-50 border transition-all font-medium focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none ${errors.address ? 'border-red-500 bg-red-50' : 'border-gray-100'}`}
                     />
+                    {errors.address && <p className="text-xs text-red-600 ml-1">{errors.address}</p>}
                   </div>
                 </div>
 
                 <div className="pt-4 flex flex-col items-center">
+                  {/* Submit Button: initiates payment process and redirects to Flutterwave checkout */}
                   <button 
                     disabled={isInitializing}
                     type="submit"
@@ -276,7 +336,8 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                       </>
                     )}
                   </button>
-                  
+
+                  {/* Flutterwave Badge: displays secure payment provider logo and badge */}
                   <div className="flex items-center gap-4 mt-8 opacity-60">
                     <img src="https://flutterwave.com/images/logo/logo-colored.svg" alt="Flutterwave" className="h-4" />
                     <div className="w-[1px] h-4 bg-gray-300" />
