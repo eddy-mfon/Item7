@@ -4,4 +4,4 @@ node_modules/
 *.pyc
 __pycache__
 .vite/
-node.exe
+ngrok.exe
