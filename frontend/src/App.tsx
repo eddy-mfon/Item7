@@ -54,10 +54,36 @@ function AppContent() {
 
   const location = useLocation();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  const paymentStatus = params.get('status');
+  const txRef = params.get('tx_ref');
+
+  // 🚨 TEMP DEBUG LOGS - Open your browser console (F12) to read these!
+  console.log("🔍 URL Search Parameters Detected:", location.search);
+  console.log("Status key found:", paymentStatus);
+  console.log("Transaction Reference found:", txRef);
+
+  if (paymentStatus === 'successful' || paymentStatus === 'success') {
+    console.log("✅ Success match identified! Launching modal...");
+    setShowSuccessModal(true);
+    
+    const newUrl = window.location.pathname;
+    window.history.replaceState({}, '', newUrl);
+    
+    setCart({
+      'beef-shawarma': 0,
+      'chicken-shawarma': 0,
+    });
+  }
+}, [location.search]);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    if (params.get('status') === 'success') {
+    const paymentStatus = params.get('status');
+    // 🌟 Check for Flutterwave's official success string value: 'successful'
+    // const pID = params.get('tx-ref');
+    if (paymentStatus === 'success' || paymentStatus === 'success') {
       setShowSuccessModal(true);
       
       // Clean up URL without triggering a reload
