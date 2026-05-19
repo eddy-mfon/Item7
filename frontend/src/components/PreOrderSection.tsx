@@ -118,8 +118,8 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
   };
 
   return (
-    {/* Checkout section: displays order summary, cart items, and delivery form */}
     <section id="checkout" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      {/* Checkout section: displays order summary, cart items, and delivery form */}
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-brand/5 -skew-x-12 translate-x-16" />
 
