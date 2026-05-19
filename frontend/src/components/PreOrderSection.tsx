@@ -30,6 +30,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
   });
   const [isInitializing, setIsInitializing] = React.useState(false);
   const [errors, setErrors] = React.useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = React.useState<string>('');
 
   // Updates form data on input change and clears error for that field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -63,8 +64,8 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
 
     if (!formData.matricNumber.trim()) {
       newErrors.matricNumber = 'Matric number is required';
-    } else if (!/^\d{2}\/\d{4}$/.test(formData.matricNumber)) {
-      newErrors.matricNumber = 'Use format: 21/0000';
+    } else if (!/^\d{2}[A-Z]{2}\d{6}$/.test(formData.matricNumber.toUpperCase())) {
+      newErrors.matricNumber = 'Use format: 12AB345678 (2 digits, 2 letters, 6 digits)';
     }
 
     if (!formData.roomNumber.trim()) {
@@ -86,6 +87,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
     if (!validateForm()) return;
 
     setIsInitializing(true);
+    setSubmitError('');
 
     const orderDetails = items
       .filter(item => cart[item.id] > 0)
@@ -103,15 +105,34 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
         }),
       });
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        const backendMessage = errorData.message || errorData.error || 'Unable to process order';
+        throw new Error(`Backend error (${response.status}): ${backendMessage}`);
+      }
+
       const data = await response.json();
       if (data.checkout_url) {
         window.location.href = data.checkout_url;
       } else {
-        alert('Failed to initialize payment. Please check if the backend is running.');
+        setSubmitError('Payment initialization failed. No checkout URL received. Please try again.');
       }
     } catch (error) {
       console.error('Payment error:', error);
-      alert('Could not connect to the payment server. Ensure the backend is running on port 5000.');
+
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        setSubmitError('Network connection error. Please check your internet connection and try again.');
+      } else if (error instanceof SyntaxError) {
+        setSubmitError('Invalid response from server. Please contact support.');
+      } else if (error instanceof Error) {
+        if (error.message.includes('Backend error')) {
+          setSubmitError(`Server error: ${error.message}. Please try again later.`);
+        } else {
+          setSubmitError(error.message);
+        }
+      } else {
+        setSubmitError('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setIsInitializing(false);
     }
@@ -119,7 +140,6 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
 
   return (
     <section id="checkout" className="py-16 sm:py-24 bg-white relative overflow-hidden">
-      {/* Checkout section: displays order summary, cart items, and delivery form */}
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-brand/5 -skew-x-12 translate-x-16" />
 
@@ -233,6 +253,13 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                 transition={{ delay: 0.2 }}
                 className="space-y-6"
               >
+                {/* Error notification for submission failures */}
+                {submitError && (
+                  <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+                    <p className="text-red-700 font-medium text-sm">{submitError}</p>
+                  </div>
+                )}
+
                 {/* Delivery Form Block: collects user information (name, phone, email, matric, room, address) with validation */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -283,7 +310,7 @@ export default function PreOrderSection({ items, cart, updateQuantity }: PreOrde
                       name="matricNumber"
                       value={formData.matricNumber}
                       onChange={handleInputChange}
-                      placeholder="e.g. 21/0000"
+                      placeholder="e.g. 12AB345678"
                       className={`w-full px-5 py-4 rounded-2xl bg-gray-50 border transition-all font-medium focus:border-brand focus:ring-4 focus:ring-brand/10 outline-none ${errors.matricNumber ? 'border-red-500 bg-red-50' : 'border-gray-100'}`}
                     />
                     {errors.matricNumber && <p className="text-xs text-red-600 ml-1">{errors.matricNumber}</p>}
