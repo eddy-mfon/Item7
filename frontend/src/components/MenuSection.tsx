@@ -324,7 +324,15 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
                 </li>
                 <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
                   <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🥤</span> Slushie</span>
+                  <span className="font-black text-gray-900">₦2000</span>
+                </li>
+                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
+                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🍹</span> Chapman</span>
                   <span className="font-black text-gray-900">₦1500</span>
+                </li>
+                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
+                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🍧</span> Popsicle</span>
+                  <span className="font-black text-gray-900">₦3000</span>
                 </li>
               </ul>
             </div>
