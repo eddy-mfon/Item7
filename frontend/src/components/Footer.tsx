@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Instagram, Phone, Mail, ArrowUpRight, MapPin, Clock } from 'lucide-react';
+import { Instagram, Phone, Mail, ArrowUpRight, MapPin, Clock, UtensilsCrossed } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -19,9 +19,14 @@ export default function Footer() {
           
           {/* Brand & Tagline */}
           <div className="md:col-span-5 flex flex-col items-start text-left">
-            <h2 className="text-5xl sm:text-6xl md:text-8xl leading-none font-display font-black tracking-tighter text-white hover:text-brand transition-colors duration-500 cursor-default select-none mb-6">
-              ITEM 7
-            </h2>
+            <div className="flex items-center gap-3 sm:gap-4 mb-6 cursor-pointer group select-none">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 shrink-0 bg-gray-900 border border-gray-800 rounded-full flex items-center justify-center group-hover:bg-brand group-hover:border-brand transition-all duration-500 shadow-md transform group-hover:rotate-[360deg]">
+                <UtensilsCrossed className="text-white w-6 h-6 sm:w-8 sm:h-8" strokeWidth={2.5} />
+              </div>
+              <h2 className="text-5xl sm:text-6xl md:text-8xl leading-none font-display font-black tracking-tighter text-white group-hover:text-brand transition-colors duration-500">
+                ITEM 7
+              </h2>
+            </div>
             <p className="text-gray-400 text-lg font-medium max-w-sm mb-10 leading-relaxed">
               We bring restaurant-quality meals directly to your campus. Fueling your late-night study sessions, one delicious bite at a time.
             </p>

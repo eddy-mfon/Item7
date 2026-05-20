@@ -13,6 +13,7 @@ async def send_telegram_notification(order_info: dict):
 
     # Safe fallback data extraction using exact dict keys from your DB log
     name = order_info.get('name', 'N/A')
+    matric = order_info.get('matricNumber', 'N/A')
     phone = order_info.get('phone', 'N/A')
     address = order_info.get('address', 'N/A')
     room = order_info.get('roomNumber', 'N/A')
@@ -25,6 +26,7 @@ async def send_telegram_notification(order_info: dict):
     message = (
         "🔔 ITEM 7 NEW ORDER 🔔\n\n"
         f"Student Name: {name}\n"
+        f"Matric Number: {matric}\n"
         f"Phone: {phone}\n"
         f"Hall: {address} (Room: {room})\n"
         f"Items: {details}\n"

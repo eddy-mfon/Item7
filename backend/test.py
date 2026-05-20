@@ -1,13 +1,10 @@
 import os
 import asyncio
 import httpx
-from dotenv import load_dotenv
+from config import settings
 
-# Load your local .env file configurations
-load_dotenv()
-
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+TELEGRAM_BOT_TOKEN = settings.TELEGRAM_BOT_TOKEN
+TELEGRAM_CHAT_ID = settings.TELEGRAM_CHAT_ID
 
 async def test_telegram_dispatch():
     print("🚀 Initiating isolated Telegram Bot verification...")
