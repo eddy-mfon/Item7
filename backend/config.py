@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     # Telegram Configuration
     TELEGRAM_BOT_TOKEN: str
     TELEGRAM_CHAT_ID: str
+    RESEND_API_KEY: str
 
     @field_validator("TELEGRAM_BOT_TOKEN", mode="before")
     @classmethod
