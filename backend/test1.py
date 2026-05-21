@@ -6,7 +6,7 @@ URL = "https://my-backend-1-s57s.onrender.com/webhooks/flutterwave"
 # 2. Your security handshake headers
 # Replace this with the exact secret hash string you put in your Render env variables!
 HEADERS = {
-    "verif-hash": "",
+    "verif-hash": "item7_webhook_secure_hash_9a8b7c6d5e4f3210",
     "Content-Type": "application/json"
 }
 
@@ -19,7 +19,7 @@ PAYLOAD = {
     "data": {
         "status": "successful",
         "id": 123456,
-        "tx_ref": "order-277b84b4-3939044385",  # Replace with your actual pending tx_ref
+        "tx_ref": "order-cd216a5a-1290364451",  # Replace with your actual pending tx_ref
         "amount": 2500,
         "currency": "NGN"
     }
