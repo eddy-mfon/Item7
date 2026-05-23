@@ -211,6 +211,20 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
             </div>
             <div className="p-6 flex-1 bg-white">
               <ul className="space-y-3">
+                <li className="flex justify-between items-center group/item p-2 hover:bg-amber-50 rounded-2xl transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-black text-lg shadow-inner shadow-amber-200/50">🌯</div>
+                    <span className="font-bold text-gray-800 group-hover/item:text-amber-700 transition-colors">Beef Shawarma</span>
+                  </div>
+                  <span className="font-black text-gray-950 bg-gray-50 px-3 py-1.5 rounded-xl group-hover/item:bg-white transition-colors shadow-sm border border-gray-100">₦5000</span>
+                </li>
+                <li className="flex justify-between items-center group/item p-2 hover:bg-yellow-50 rounded-2xl transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 font-black text-lg shadow-inner shadow-yellow-200/50">🌯</div>
+                    <span className="font-bold text-gray-800 group-hover/item:text-yellow-700 transition-colors">Chicken Shawarma</span>
+                  </div>
+                  <span className="font-black text-gray-950 bg-gray-50 px-3 py-1.5 rounded-xl group-hover/item:bg-white transition-colors shadow-sm border border-gray-100">₦5000</span>
+                </li>
                 <li className="flex justify-between items-center group/item p-2 hover:bg-orange-50 rounded-2xl transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-black text-lg shadow-inner shadow-orange-200/50">🍗</div>
@@ -306,14 +320,6 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
             </div>
             <div className="p-6 flex-1 bg-white">
               <ul className="space-y-2">
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🌯</span> Beef Shawarma</span>
-                  <span className="font-black text-gray-900">₦5000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🌯</span> Chicken Shawarma</span>
-                  <span className="font-black text-gray-900">₦5000</span>
-                </li>
                 <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
                   <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🥗</span> Coleslaw</span>
                   <span className="font-black text-gray-900">₦1000</span>
