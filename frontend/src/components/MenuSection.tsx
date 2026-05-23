@@ -28,8 +28,11 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
   };
 
   return (
-    <section id="menu" className="py-16 sm:py-24 bg-[#fafafa]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section id="menu" className="py-16 sm:py-24 bg-[#fafafa] relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03] mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col items-center mb-14 sm:mb-20 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/10 text-brand-dark font-medium text-sm mb-6">
             <ChefHat size={16} />

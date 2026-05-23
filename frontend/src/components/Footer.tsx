@@ -72,7 +72,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="font-bold text-gray-200 mb-1">Covenant University</p>
-                  <p className="text-sm">Main Campus, Student Center Area</p>
+                  <p className="text-sm">Beside Cafeteria 1 Parking Lot</p>
                 </div>
               </div>
 
