@@ -21,7 +21,7 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
   }, [location.pathname]);
 
   useEffect(() => {
-    const targetDate = new Date('2026-05-25T00:00:00');
+    const targetDate = new Date('2026-05-27T10:00:00');
     const updateCountdown = () => {
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
