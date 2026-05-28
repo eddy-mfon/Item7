@@ -66,16 +66,15 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
       <div className="relative z-[60] bg-gray-950 text-white text-center shadow-lg overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
         <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-brand to-transparent opacity-50"></div>
-        <p className="py-2 px-3 text-[10px] xs:text-xs tracking-[0.1em] xs:tracking-[0.15em] font-medium uppercase flex flex-row items-center justify-center gap-1.5 opacity-90 relative z-10 w-full overflow-hidden text-center">
+        <p className="py-2 px-3 text-[10px] xs:text-xs tracking-[0.1em] xs:tracking-[0.15em] font-bold uppercase flex flex-row items-center justify-center gap-1.5 opacity-90 relative z-10 w-full overflow-hidden text-center">
           <span className="flex items-center gap-1.5 shrink-0">
             <span className="relative flex h-1.5 w-1.5 xs:h-2 xs:w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
               <span className="relative inline-flex rounded-full h-full w-full bg-brand"></span>
             </span>
-            <span className="text-gray-400 hidden xs:inline">Grand Pop-up drops in</span>
-            <span className="text-gray-400 xs:hidden">Pop-up drops in</span>
+            <span className="text-brand">Online pre-orders closed.</span>
           </span>
-          <span className="font-black text-brand tracking-widest">{timeLeft}</span>
+          <span className="text-gray-400">Visit our campus stand beside Cafeteria 1 Parking Lot!</span>
         </p>
       </div>
 
@@ -100,72 +99,41 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
           <div className="hidden md:flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-auto gap-1 bg-gray-100/50 rounded-full p-1 border border-gray-200/50">
             <button 
               onClick={handleScrollToAbout} 
-              className="px-5 py-1.5 rounded-full text-sm font-bold text-gray-500 hover:text-gray-950 hover:bg-white transition-all shadow-sm shadow-transparent hover:shadow-[0_2px_10px_rgba(0,0,0,0.05)]"
+              className="px-5 py-1.5 rounded-full text-sm font-bold text-gray-500 hover:text-gray-950 hover:bg-white transition-all shadow-sm shadow-transparent hover:shadow-[0_2px_10px_rgba(0,0,0,0.05)] font-sans cursor-pointer"
             >
               Our Story
             </button>
-            <Link 
-              to="/shop" 
-              className="px-5 py-1.5 rounded-full text-sm font-bold text-gray-500 hover:text-gray-950 hover:bg-white transition-all shadow-sm shadow-transparent hover:shadow-[0_2px_10px_rgba(0,0,0,0.05)]"
+            <button 
+              onClick={() => {
+                document.getElementById('thank-you')?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className="px-5 py-1.5 rounded-full text-sm font-bold text-gray-500 hover:text-gray-950 hover:bg-white transition-all shadow-sm shadow-transparent hover:shadow-[0_2px_10px_rgba(0,0,0,0.05)] font-sans cursor-pointer"
             >
-              Shop Menu
-            </Link>
+              Find Stand
+            </button>
           </div>
 
           <div className="hidden md:flex items-center">
-            <Link 
-              to="/shop"
-              onClick={handleOrderNowClick}
-              className="relative overflow-hidden bg-brand text-gray-950 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full font-black transition-all hover:scale-[1.03] active:scale-95 flex items-center gap-3 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] group h-10 sm:h-12 border border-brand/50"
+            <button 
+              onClick={() => {
+                document.getElementById('thank-you')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="relative overflow-hidden bg-brand text-gray-950 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full font-black transition-all hover:scale-[1.03] active:scale-95 flex items-center gap-3 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] group h-10 sm:h-12 border border-brand/50 cursor-pointer"
             >
               <div className="absolute inset-0 bg-white/25 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-              <div className="relative flex items-center justify-center z-10">
-                <ShoppingBag size={20} className="group-hover:-translate-y-1 group-hover:rotate-12 transition-transform duration-300 text-gray-950 stroke-[2.5]" />
-                <AnimatePresence mode="popLayout">
-                  {totalItems > 0 && (
-                    <motion.span 
-                      key={totalItems}
-                      initial={{ scale: 0.5, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.5, opacity: 0 }}
-                      className="absolute -top-3 -right-3 bg-white text-brand text-[11px] font-black w-6 h-6 min-w-[24px] rounded-full flex items-center justify-center border-2 border-brand shadow-[0_4px_10px_rgba(0,0,0,0.1)] z-20"
-                    >
-                      {totalItems}
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </div>
-              <span className="relative z-10 hidden lg:block tracking-tight text-[16px] uppercase">Order Now</span>
-            </Link>
+              <span className="relative z-10 hidden lg:block tracking-tight text-[16px] uppercase">Visit Stand</span>
+            </button>
           </div>
 
           <div className="md:hidden flex items-center gap-1.5 xs:gap-2 sm:gap-3">
-            <div className="relative">
-              <Link 
-                to="/shop"
-                onClick={(e) => {
-                  handleOrderNowClick(e);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="overflow-hidden flex items-center justify-center bg-brand text-gray-950 w-9 h-9 xs:w-10 xs:h-10 sm:w-11 sm:h-11 rounded-full shadow-[0_4px_20px_rgba(249,115,22,0.4)] transition-all active:scale-95 border border-brand/50 group"
-              >
-                <div className="absolute inset-0 bg-white/25 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                <ShoppingBag size={17} className="relative z-10 xs:w-5 xs:h-5 group-hover:-translate-y-0.5 group-hover:rotate-12 transition-transform duration-300 stroke-[2.5]" />
-              </Link>
-              <AnimatePresence mode="popLayout">
-                {totalItems > 0 && (
-                  <motion.span 
-                    key={totalItems}
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.5, opacity: 0 }}
-                    className="absolute -top-2 -right-2 z-20 bg-white text-brand text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-brand shadow-[0_3px_8px_rgba(0,0,0,0.15)]"
-                  >
-                    {totalItems}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </div>
+            <button 
+              onClick={() => {
+                document.getElementById('thank-you')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="overflow-hidden flex items-center justify-center bg-brand text-gray-950 px-3 h-9 xs:h-10 rounded-full shadow-[0_4px_20px_rgba(249,115,22,0.4)] transition-all active:scale-95 border border-brand/50 font-black text-[11px] uppercase cursor-pointer"
+            >
+              Visit Stand
+            </button>
             
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -193,16 +161,19 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
                     handleScrollToAbout();
                     setIsMobileMenuOpen(false);
                   }} 
-                  className="w-full text-left text-[15px] xs:text-[17px] font-bold text-gray-950 hover:text-brand hover:bg-gray-50 px-4 xs:px-5 py-3 xs:py-4 rounded-[1.25rem] xs:rounded-[1.5rem] transition-all flex items-center justify-between group"
+                  className="w-full text-left text-[15px] xs:text-[17px] font-bold text-gray-950 hover:text-brand hover:bg-gray-50 px-4 xs:px-5 py-3 xs:py-4 rounded-[1.25rem] xs:rounded-[1.5rem] transition-all flex items-center justify-between group cursor-pointer"
                 >
                   Our Story <ChevronRight size={16} className="text-gray-300 group-hover:text-brand transition-colors shrink-0" />
                 </button>
-                <Link 
-                  to="/shop" 
-                  className="w-full text-left text-[15px] xs:text-[17px] font-bold text-gray-950 hover:text-brand hover:bg-gray-50 px-4 xs:px-5 py-3 xs:py-4 rounded-[1.25rem] xs:rounded-[1.5rem] transition-all flex items-center justify-between group"
+                <button 
+                  onClick={() => {
+                    document.getElementById('thank-you')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }} 
+                  className="w-full text-left text-[15px] xs:text-[17px] font-bold text-gray-950 hover:text-brand hover:bg-gray-50 px-4 xs:px-5 py-3 xs:py-4 rounded-[1.25rem] xs:rounded-[1.5rem] transition-all flex items-center justify-between group cursor-pointer"
                 >
-                  Shop Menu <ChevronRight size={16} className="text-gray-300 group-hover:text-brand transition-colors shrink-0" />
-                </Link>
+                  Find Stand <ChevronRight size={16} className="text-gray-300 group-hover:text-brand transition-colors shrink-0" />
+                </button>
               </div>
             </motion.div>
           )}

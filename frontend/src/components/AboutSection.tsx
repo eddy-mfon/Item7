@@ -58,8 +58,8 @@ export default function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20, scale: 0.8 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/5 border border-brand/10 text-brand-dark font-bold text-sm mb-6"
           >
@@ -72,9 +72,9 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-display font-black text-gray-950 mb-6 leading-[1.1] tracking-tighter"
+            className="text-5xl sm:text-7xl md:text-8xl font-display font-black text-gray-950 mb-6 leading-[0.95] tracking-tighter"
           >
-            Why Choose <span className="text-brand inline-block">Item 7?</span>
+            Why <span className="text-brand inline-block">Item 7?</span>
           </motion.h2>
           
           <motion.p 
@@ -82,32 +82,31 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg sm:text-xl text-gray-500 leading-relaxed font-medium"
+            className="text-xl sm:text-3xl text-gray-400 font-bold max-w-xl mx-auto"
           >
-            Item 7 is not just food; it's a campus movement. We bring the best, most premium shawarmas 
-            directly to your school, making sure you stay fueled for your studies without breaking the bank.
+            Premium quality. Zero stress.
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mb-16 sm:mb-24">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mb-16 sm:mb-24">
           {features.map((feature, idx) => (
             <motion.div 
               key={idx}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: idx * 0.1, duration: 0.5, type: 'spring', damping: 20, stiffness: 100 }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-gray-100 transition-all group"
+              transition={{ delay: idx * 0.1, duration: 0.6, type: 'spring', damping: 15, stiffness: 80 }}
+              whileHover={{ scale: 1.05, y: -10, rotate: idx % 2 === 0 ? 2 : -2 }}
+              className="bg-white p-8 sm:p-12 rounded-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_80px_rgba(0,0,0,0.08)] border border-gray-100 transition-all group flex flex-col items-center text-center relative overflow-hidden"
             >
-              <div className={`w-14 h-14 ${feature.color} border ${feature.border} rounded-2xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform`}>
-                {feature.icon}
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className={`w-24 h-24 sm:w-28 sm:h-28 ${feature.color} border ${feature.border} rounded-[2.5rem] flex items-center justify-center shadow-sm mb-8 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 relative z-10`}>
+                {React.cloneElement(feature.icon as React.ReactElement, { className: 'w-12 h-12 sm:w-14 sm:h-14' })}
               </div>
               
-              <h3 className="text-xl sm:text-2xl font-black text-gray-950 mb-3 tracking-tight">{feature.title}</h3>
-              <p className="text-gray-500 font-medium leading-relaxed">
-                {feature.description}
-              </p>
+              <h3 className="text-2xl sm:text-3xl font-black text-gray-950 mb-4 tracking-tight relative z-10">{feature.title}</h3>
+              <div className="w-12 h-1.5 bg-gray-100 rounded-full group-hover:w-24 group-hover:bg-brand transition-all duration-500 relative z-10" />
             </motion.div>
           ))}
         </div>
@@ -132,19 +131,19 @@ export default function AboutSection() {
 
           <div className="relative z-10 max-w-3xl">
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black text-white mb-6 tracking-tighter leading-[1.1]">
-              Skip the line.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-rose-400">Secure your spot.</span>
+              We are Live!<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-rose-400">Get Yours at the Stand.</span>
             </h2>
             <p className="text-gray-300 text-lg sm:text-xl font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
-              Don't leave your cravings to chance. Pre-order now and guarantee your meal for the biggest popup on campus.
+              Online pre-orders are officially closed, but we are serving hot and fresh Shawarmas live on campus. Stop by and grab yours before we sell out!
             </p>
             
-            <Link 
-              to="/shop" 
-              className="inline-flex bg-brand hover:bg-white text-gray-950 px-8 sm:px-10 py-4 sm:py-5 rounded-full font-black text-lg sm:text-xl transition-all hover:scale-105 active:scale-95 items-center justify-center gap-3 shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] w-full sm:w-auto"
+            <button 
+              onClick={() => document.getElementById('thank-you')?.scrollIntoView({ behavior: 'smooth' })} 
+              className="inline-flex bg-brand hover:bg-white text-gray-950 px-8 sm:px-10 py-4 sm:py-5 rounded-full font-black text-lg sm:text-xl transition-all hover:scale-105 active:scale-95 items-center justify-center gap-3 shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] w-full sm:w-auto cursor-pointer"
             >
-              Order Now <ArrowRight size={24} className="text-gray-950" />
-            </Link>
+              Find Our Location <ArrowRight size={24} className="text-gray-950" />
+            </button>
           </div>
         </motion.div>
       </div>
