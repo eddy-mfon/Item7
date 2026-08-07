@@ -57,7 +57,7 @@ export default function HeroSection() {
           <div className="absolute inset-0 bg-brand/5 group-hover:bg-brand/10 transition-colors duration-300" />
           <Flame size={16} className="text-brand relative fill-brand/20" />
           <span className="uppercase tracking-widest text-[11px] sm:text-xs relative text-gray-900">
-            May 27th <span className="text-gray-300 mx-2">•</span> In front of Cafeteria 1
+            Pre-Orders are now available
           </span>
         </motion.div>
 

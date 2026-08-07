@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Instagram, Phone, Mail, ArrowUpRight, MapPin, Clock, UtensilsCrossed } from 'lucide-react';
+import { Instagram, Phone, Mail, ArrowUpRight, UtensilsCrossed } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -62,32 +62,7 @@ export default function Footer() {
 
           {/* Links & Info */}
           <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-12 md:gap-8 pt-4">
-            {/* Pop-up Details */}
-            <div className="space-y-6">
-              <h3 className="text-xl font-bold tracking-tight text-white mb-2">Pop-up Details</h3>
-              
-              <div className="flex items-start gap-4 text-gray-400 group">
-                <div className="w-10 h-10 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center shrink-0 group-hover:bg-brand/20 group-hover:border-brand transition-colors">
-                  <MapPin size={18} className="group-hover:text-brand transition-colors" />
-                </div>
-                <div>
-                  <p className="font-bold text-gray-200 mb-1">Covenant University</p>
-                  <p className="text-sm">Beside Cafeteria 1 Parking Lot</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 text-gray-400 group">
-                <div className="w-10 h-10 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center shrink-0 group-hover:bg-brand/20 group-hover:border-brand transition-colors">
-                  <Clock size={18} className="group-hover:text-brand transition-colors" />
-                </div>
-                <div>
-                  <p className="font-bold text-brand mb-1">May 25th, 2026</p>
-                  <p className="text-sm">10:00 AM - Till Sold Out</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Newsletter */}
+          {/* Stay Updated */}
             <div className="space-y-6">
               <h3 className="text-xl font-bold tracking-tight text-white mb-2">Stay Updated</h3>
               <p className="text-gray-400 text-sm">

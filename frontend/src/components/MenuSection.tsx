@@ -42,20 +42,16 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
             Today's <span className="text-brand">Menu</span>
           </h2>
           <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
-            Proper food prepared fresh. Choose your favorite and secure your order before we run out.
+            Fresh, perfectly wrapped shawarma made to order. Pick your favourite and pre-order before we sell out.
           </p>
         </div>
 
       {/* Menu Cards */}
-      <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto mb-20 sm:mb-32">
+      <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto mb-16 sm:mb-24">
         {items.map((item, idx) => {
           const colors = [
-            'from-orange-300 via-rose-200 to-rose-300',
-            'from-yellow-200 via-amber-200 to-amber-400',
-            'from-emerald-200 via-teal-200 to-emerald-400',
-            'from-sky-300 via-blue-200 to-indigo-300',
-            'from-fuchsia-200 via-purple-200 to-purple-400',
-            'from-rose-300 via-orange-200 to-red-300'
+            'from-red-300 via-orange-200 to-amber-300',
+            'from-yellow-200 via-amber-100 to-orange-200',
           ];
           const gradient = `bg-gradient-to-br ${colors[idx % colors.length]}`;
           
@@ -168,185 +164,6 @@ export default function MenuSection({ items, cart, updateQuantity }: MenuSection
           </motion.div>
           );
         })}
-      </div>
-
-
-      {/* Tradefair Exclusive Section */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 border-t border-gray-200 pt-16 sm:pt-24">
-        <div className="text-center mb-16">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-orange-100 to-rose-100 text-orange-700 font-bold text-sm mb-6 shadow-sm border border-orange-200/50"
-          >
-            <Flame size={16} className="text-orange-500" />
-            <span>Available On-Site Only</span>
-          </motion.div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-gray-900 tracking-tight mb-6">
-            Trade Fair <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-rose-500">Exclusives</span>
-          </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto font-medium">
-            These special items will be available for direct purchase at our Covenant University pop-up stand in front of Cafeteria 1. No pre-orders required!
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {/* Main Course */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_10px_40px_rgb(0,0,0,0.06)] group hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] transition-all duration-500 flex flex-col"
-          >
-            <div className="h-48 relative overflow-hidden bg-gradient-to-br from-orange-100 to-rose-100 flex items-center justify-center p-6">
-              <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-              <img 
-                src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=800" 
-                alt="Jollof Rice" 
-                className="w-full h-full object-cover absolute inset-0 opacity-40 group-hover:opacity-50 transition-opacity duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-              <h3 className="absolute bottom-6 left-6 text-2xl font-black text-white uppercase tracking-wider z-10 flex items-center gap-3">
-                <ChefHat className="text-orange-400" size={24} />
-                Main Course
-              </h3>
-            </div>
-            <div className="p-6 flex-1 bg-white">
-              <ul className="space-y-3">
-                <li className="flex justify-between items-center group/item p-2 hover:bg-orange-50 rounded-2xl transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-black text-lg shadow-inner shadow-orange-200/50">🍗</div>
-                    <span className="font-bold text-gray-800 group-hover/item:text-orange-700 transition-colors">A Plate with Chicken</span>
-                  </div>
-                  <span className="font-black text-gray-950 bg-gray-50 px-3 py-1.5 rounded-xl group-hover/item:bg-white transition-colors shadow-sm border border-gray-100">₦5000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-rose-50 rounded-2xl transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 font-black text-lg shadow-inner shadow-rose-200/50">🥩</div>
-                    <span className="font-bold text-gray-800 group-hover/item:text-rose-700 transition-colors">A Plate with Beef</span>
-                  </div>
-                  <span className="font-black text-gray-950 bg-gray-50 px-3 py-1.5 rounded-xl group-hover/item:bg-white transition-colors shadow-sm border border-gray-100">₦3500</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-blue-50 rounded-2xl transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-black text-lg shadow-inner shadow-blue-200/50">🐟</div>
-                    <span className="font-bold text-gray-800 group-hover/item:text-blue-700 transition-colors">A Plate with Fish</span>
-                  </div>
-                  <span className="font-black text-gray-950 bg-gray-50 px-3 py-1.5 rounded-xl group-hover/item:bg-white transition-colors shadow-sm border border-gray-100">₦4000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-amber-50 rounded-2xl transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-black text-lg shadow-inner shadow-amber-200/50">🌯</div>
-                    <span className="font-bold text-gray-800 group-hover/item:text-amber-700 transition-colors">Beef Shawarma</span>
-                  </div>
-                  <span className="font-black text-gray-950 bg-gray-50 px-3 py-1.5 rounded-xl group-hover/item:bg-white transition-colors shadow-sm border border-gray-100">₦5000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-yellow-50 rounded-2xl transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 font-black text-lg shadow-inner shadow-yellow-200/50">🌯</div>
-                    <span className="font-bold text-gray-800 group-hover/item:text-yellow-700 transition-colors">Chicken Shawarma</span>
-                  </div>
-                  <span className="font-black text-gray-950 bg-gray-50 px-3 py-1.5 rounded-xl group-hover/item:bg-white transition-colors shadow-sm border border-gray-100">₦5000</span>
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Extras */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_10px_40px_rgb(0,0,0,0.06)] group hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] transition-all duration-500 flex flex-col"
-          >
-            <div className="h-48 relative overflow-hidden bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center p-6">
-              <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-              <img 
-                src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&q=80&w=800" 
-                alt="Sides and Extras" 
-                className="w-full h-full object-cover absolute inset-0 opacity-40 group-hover:opacity-50 transition-opacity duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-              <h3 className="absolute bottom-6 left-6 text-2xl font-black text-white uppercase tracking-wider z-10 flex items-center gap-3">
-                 <ShoppingBag className="text-emerald-400" size={24} />
-                 Add-on Extras
-              </h3>
-            </div>
-            <div className="p-6 flex-1 bg-white">
-              <ul className="space-y-2">
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🍚</span> Extra Rice</span>
-                  <span className="font-black text-gray-900">₦2000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🍗</span> Extra Chicken</span>
-                  <span className="font-black text-gray-900">₦3000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🥩</span> Extra Beef</span>
-                  <span className="font-black text-gray-900">₦1000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🐟</span> Extra Fish</span>
-                  <span className="font-black text-gray-900">₦2000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🍌</span> Extra Plantain</span>
-                  <span className="font-black text-gray-900">₦800</span>
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Desserts */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_10px_40px_rgb(0,0,0,0.06)] group hover:shadow-[0_20px_50px_rgb(0,0,0,0.1)] transition-all duration-500 flex flex-col"
-          >
-            <div className="h-48 relative overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center p-6">
-              <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-              <img 
-                src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=800" 
-                alt="Desserts" 
-                className="w-full h-full object-cover absolute inset-0 opacity-40 group-hover:opacity-50 transition-opacity duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-              <h3 className="absolute bottom-6 left-6 text-2xl font-black text-white uppercase tracking-wider z-10 flex items-center gap-3">
-                 <Flame className="text-purple-400" size={24} />
-                 Desserts & Sides
-              </h3>
-            </div>
-            <div className="p-6 flex-1 bg-white">
-              <ul className="space-y-2">
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🥗</span> Coleslaw</span>
-                  <span className="font-black text-gray-900">₦1000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🍭</span> Cotton Candy</span>
-                  <span className="font-black text-gray-900">₦1500</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🥤</span> Slushie</span>
-                  <span className="font-black text-gray-900">₦2000</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🍹</span> Chapman</span>
-                  <span className="font-black text-gray-900">₦1500</span>
-                </li>
-                <li className="flex justify-between items-center group/item p-2 hover:bg-gray-50 rounded-2xl transition-colors border-b border-gray-50 last:border-0 hover:border-transparent">
-                  <span className="font-bold text-gray-700 flex items-center gap-3"><span className="text-lg">🍧</span> Popsicle</span>
-                  <span className="font-black text-gray-900">₦3000</span>
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-        </div>
       </div>
       </div>
     </section>

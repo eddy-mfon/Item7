@@ -6,7 +6,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,28 +19,7 @@ export default function Navbar({ totalItems = 0 }: { totalItems?: number }) {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
-  useEffect(() => {
-    const targetDate = new Date('2026-05-27T10:00:00');
-    const updateCountdown = () => {
-      const now = new Date();
-      const difference = targetDate.getTime() - now.getTime();
-      
-      if (difference <= 0) {
-        setTimeLeft('Pop-up is live!');
-        return;
-      }
 
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((difference / 1000 / 60) % 60);
-      
-      setTimeLeft(`${days}d ${hours}h ${minutes}m`);
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 60000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleScrollToAbout = () => {
     if (location.pathname !== '/') {
